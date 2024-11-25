@@ -1,0 +1,54 @@
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #f8f8f8;
+}
+
+.nav-items {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 16px;
+    position: relative;
+}
+
+.nav-item:first-child::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 16px;
+    width: 1px;
+    background-color: #ccc;
+}
+
+.nav-item:hover {
+    background-color: #f0f0f0;
+}
+
+.map-container {
+    text-align: center;
+    padding: 20px 0;
+    margin-right: -50px;
+}
+
+.map-container img {
+    max-width: 100%;
+    height: auto;
+    transform: translateX(50px);
+}
+
+.search-area {
+    display: none; /* 기본적으로 숨김 상태 */
+    margin: 20px 0;
+    text-align: center;
+}
