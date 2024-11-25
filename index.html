@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css" />
     <title>지역 검색</title>
 </head>
 <body>
@@ -11,7 +12,7 @@
         <div class="search-area">
             <div class="search-tabs">
                 <button class="tab active">지역 검색</button>
-                <button class="tab">랜던 여행</button>
+                <button class="tab">랜덤 여행</button>
             </div>
             <div class="search-box">
                 <input type="text" placeholder="검색어를 입력하세요">
@@ -19,16 +20,22 @@
             </div>
         </div>
 
-        <!-- 지도 영역 -->
+        <!-- SVG 지도 영역 -->
         <div class="map-container">
-            <!-- 지도가 표시될 영역 -->
-            <div id="map"></div>
-        </div>
-
-        <!-- 버튼 클릭 결과 표시 영역 -->
-        <div class="result-box">
-            <h3>원하는 지역 입력 후 버튼 클릭</h3>
+            <img src="image/Korea.svg"/>
         </div>
     </div>
+
+    <style>
+        .map-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        #kr-map {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 </body>
 </html>
