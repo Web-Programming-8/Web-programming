@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="index.css" />
-    <title>K-Map</title>
+    <title>지역 검색</title>
 </head>
 <body>
     <div class="container">
@@ -12,7 +12,7 @@
         <nav class="nav-bar">
             <div class="nav-items">
                 <button class="nav-item active" id="searchNav">지역 검색</button>
-                <button class="nav-item" onclick="goToRoulette()">랜덤 여행</button>
+                <button class="nav-item">랜덤 여행</button>
             </div>
         </nav>
 
@@ -45,10 +45,6 @@
                 }
             });
         });
-        
-        function goToRoulette() {
-            window.location.href = "random.html";
-        }
     </script>
 </body>
 </html>
