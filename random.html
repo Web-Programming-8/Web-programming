@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>랜덤 여행 추천 슬롯머신</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        .slot-machine {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 50px auto;
+            width: 200px;
+            height: 100px;
+            border: 5px solid #007bff;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            background-color: #f1f1f1;
+        }
+        .reel {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: auto;
+            text-align: center;
+            line-height: 100px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+        }
+        #spin-button, #stop-button, #region-link {
+            padding: 15px 30px;
+            font-size: 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #spin-button:hover, #stop-button:hover, #region-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>랜덤 여행 추천 슬롯머신</h1>
+    <div class="slot-machine">
+        <div class="reel" id="reel">
+            <!-- 여행지 리스트 -->
+            서울<br>부산<br>경기<br>강원<br>인천<br>충청<br>전라<br>제주<br>경주<br>독도<br>연평도<br>평양<br>
+        </div>
+    </div>
+    <button id="spin-button" onclick="startSpin()">돌리기</button>
+    <button id="stop-button" onclick="stopSpin()" disabled>스탑</button>
+    <br><br>
+    <button id="region-link" style="display: none;" onclick="goToRegionPage()">이 지역으로 이동</button>
+
+    <script>
+        const destinations = ["서울", "부산", "경기", "강원", "인천", "충청", "전라", "제주", "경주", "독도", "연평도", "평양"];
+
+        const regionMapping = {
+            "서울": "seoul",
+            "부산": "busan",
+            "경기": "gyeonggi",
+            "강원": "gangwon",
+            "인천": "incheon",
+            "충청": "chungcheong",
+            "전라": "jeolla",
+            "제주": "jeju",
+            "경주": "gyeongju",
+            "독도": "dokdo",
+            "연평도": "yeonpyeong",
+            "평양": "pyongyang"
+        };
+
+        let spinning = false; // 상태 플래그
+        let animationInterval;
+        let selectedRegion = null; // 선택된 지역을 저장하는 변수
+
+        function startSpin() {
+            // selectedRegion이 null이 아닌 경우, 이미 추천된 여행지가 있다면 새로 고침 안내
+            if (selectedRegion !== null) {
+                alert('이미 여행지가 추천되었습니다. 페이지를 새로 고칩니다.');
+                location.reload();  // 페이지 새로 고침
+                return;  // 이 함수의 나머지 코드 실행을 중단
+            }
+
+            const reel = document.getElementById('reel');
+            reel.style.animation = 'none'; // 기존 애니메이션 중단
+            spinning = true;
+
+            // 여행지 목록을 두 번 반복하여 긴 목록을 만듬
+            reel.innerHTML = destinations.join('<br>') + '<br>' + destinations.join('<br>');
+
+            // "스탑" 버튼 활성화
+            document.getElementById('stop-button').disabled = false;
+
+            // 빠르게 스크롤 시작
+            animationInterval = setInterval(() => {
+                const currentTop = parseInt(getComputedStyle(reel).top || '0', 10);
+                const newTop = currentTop - 20; // 위로 이동하는 거리
+                reel.style.top = `${newTop}px`;
+
+                // 맨 끝으로 갔다면 초기화
+                if (Math.abs(newTop) >= reel.scrollHeight / 2) {
+                    reel.style.top = '0px';
+                }
+            }, 20); // 속도: 20ms 간격으로 이동
+        }
+
+        function stopSpin() {
+            spinning = false;
+            clearInterval(animationInterval); // 애니메이션 중단
+            const reel = document.getElementById('reel');
+            const itemHeight = document.querySelector('.slot-machine').offsetHeight;
+
+            // 현재 위치를 기준으로 가까운 여행지 계산
+            const currentTop = parseInt(getComputedStyle(reel).top || '0', 10);
+            let normalizedTop = currentTop % reel.scrollHeight;
+            if (normalizedTop > 0) normalizedTop -= reel.scrollHeight;
+            const selectedIndex = Math.abs(Math.round(normalizedTop / itemHeight)) % destinations.length;
+
+            // 멈출 위치 설정
+            reel.style.top = `${-selectedIndex * itemHeight}px`;
+
+            // 선택된 지역을 변수에 저장
+            selectedRegion = destinations[selectedIndex];
+
+            // 결과 알림과 페이지로 이동하는 버튼 표시
+            setTimeout(() => {
+                alert(`추천 여행지: ${selectedRegion}`);
+                document.getElementById('region-link').style.display = 'inline-block'; // 버튼 보이기
+            }, 100);
+
+            // 버튼 상태 변경
+            document.getElementById('spin-button').disabled = true;
+            document.getElementById('stop-button').disabled = true;
+        }
+
+        // 선택된 지역의 페이지로 이동하는 함수
+        function goToRegionPage() {
+            if (selectedRegion) {
+                const englishRegion = regionMapping[selectedRegion]; // 영어 이름으로 변환
+                window.location.href = `${englishRegion}.html`; // 선택된 지역의 페이지로 이동
+            }
+        }
+    </script>
+</body>
+</html>
