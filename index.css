@@ -17,12 +17,15 @@ body {
     justify-content: center;
     align-items: center;
     padding: 10px;
-    background-color: #f8f8f8;
+    background-color: transparent;
 }
 
 .nav-items {
     display: flex;
     align-items: center;
+    background-color: transparent;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .nav-item {
@@ -42,7 +45,7 @@ body {
     transform: translateY(-50%);
     height: 16px;
     width: 1px;
-    background-color: #ccc;
+    background-color: #f0f0f0;
 }
 
 .nav-item:hover {
