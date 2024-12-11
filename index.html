@@ -30,32 +30,9 @@
             <img src="image/Korea.svg" alt="한국 도 지도"/>
         </div>
     </div>
+    <div class="background-container">
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchNav = document.getElementById('searchNav');
-            const regionInfoNav = document.getElementById('regionInfoNav');
-            const searchArea = document.getElementById('searchArea');
-            const mapContainer = document.querySelector('.map-container');
-
-            searchArea.style.display = 'none';
-            mapContainer.style.display = 'none';
-            
-            searchNav.addEventListener('click', function() {
-                searchArea.style.display = 'block'; 
-                mapContainer.style.display = 'none'; 
-            });
-
-            regionInfoNav.addEventListener('click', function() {
-                mapContainer.style.display = 'block'; 
-                searchArea.style.display = 'none';
-            });
-        });
-    
-                
-        function goToRoulette() {
-            window.location.href = "random.html";
-        }
-    </script>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
