@@ -6,11 +6,12 @@
     <link rel="stylesheet" href="index.css" />
     <title>K-Map</title>
 </head>
-<body style="background-image: url('image/Background.jpg');">
+<body>
     <div class="container">
         <!-- 네비게이션 바 -->
         <nav class="nav-bar">
             <div class="nav-items">
+                <button class="nav-item" id="regionInfoNav">지역 정보</button>
                 <button class="nav-item active" id="searchNav">지역 검색</button>
                 <button class="nav-item" onclick="goToRoulette()">랜덤 여행</button>
             </div>
@@ -26,25 +27,31 @@
 
         <!-- 지도 영역 -->
         <div class="map-container">
-            <img src="image/Korea.svg"/>
+            <img src="image/Korea.svg" alt="한국 도 지도"/>
         </div>
     </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const searchNav = document.getElementById('searchNav');
+            const regionInfoNav = document.getElementById('regionInfoNav');
             const searchArea = document.getElementById('searchArea');
-            
+            const mapContainer = document.querySelector('.map-container');
+
             searchArea.style.display = 'none';
+            mapContainer.style.display = 'none';
             
             searchNav.addEventListener('click', function() {
-                if (searchArea.style.display === 'none') {
-                    searchArea.style.display = 'block';
-                } else {
-                    searchArea.style.display = 'none';
-                }
+                searchArea.style.display = 'block'; 
+                mapContainer.style.display = 'none'; 
+            });
+
+            regionInfoNav.addEventListener('click', function() {
+                mapContainer.style.display = 'block'; 
+                searchArea.style.display = 'none';
             });
         });
+    
                 
         function goToRoulette() {
             window.location.href = "random.html";
