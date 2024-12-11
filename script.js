@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
     setInterval(changeBackground, 7000);
 
     // 지도, 검색창 숨김처리 기능
-    searchArea.style.display = 'flex';
+    searchArea.style.display = 'none';
     mapContainer.style.display = 'none';
 
     searchNav.addEventListener('click', function () {
