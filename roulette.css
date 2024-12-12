@@ -1,0 +1,94 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin-top: 100px;
+  padding: 0;
+  height: 100vh;
+  background-color: #f8f9fa;
+  display: flex;
+
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+}
+
+.slot-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  align-items: center;
+  transform: scale(1.2);
+}
+
+.slot-roof {
+  width: 480px;
+  z-index: 1;
+  top: 10px;
+  display: block;
+}
+
+.slot-machine {
+  width: 300px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  border: 5px solid #e7f2aa;
+  border-top: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  background-color: #f1f1f1;
+  margin-top: -10px;
+  margin-bottom: 15px;
+  margin-bottom: 0;
+}
+
+.slot-floor {
+  width: 480px;
+  margin-top: -15px;
+  display: block;
+}
+
+.reel {
+  position: relative;
+  top: 0px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  color: black;
+  background-color: #e7f2aa;
+}
+
+.reel div {
+  height: 100px;
+  line-height: 100px;
+}
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+#spin-button,
+#stop-button,
+#region-link {
+  padding: 18px 36px;
+  font-size: 24px;
+  background-color: #e092ee;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 12px;
+}
+
+#spin-button:hover,
+#stop-button:hover,
+#region-link:hover {
+  background-color: #0056b3;
+}
+
+#region-link {
+  display: none;
+}
