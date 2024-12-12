@@ -10,6 +10,7 @@
 body {
   margin: 0;
   padding: 0;
+  display: flex;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -18,7 +19,9 @@ body {
   min-height: 100vh;
   font-family: Arial, sans-serif;
   text-align: center;
-  overflow: auto;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
   transition: opacity 2s ease-in-out;
 }
 
@@ -57,7 +60,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  padding: 10;
+  padding: 10px;
   transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
@@ -108,6 +111,22 @@ body {
   opacity: 1;
 }
 
+.quote-container {
+  position: relative;
+  max-width: 70%;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+  z-index: 1;
+}
+
+.quote {
+  font-size: 2rem;
+  line-height: 1.5;
+  font-weight: bold;
+  animation: fadeIn 2s ease-in-out;
+}
+
 .map-container {
   display: none;
   text-align: center;
@@ -138,9 +157,8 @@ body {
   padding: 8px 15px;
   background-color: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  width: 450px;
-  max-width: 90%;
-  transition: all 0.3s ease;
+  max-width: 450px;
+  width: 100%;
 }
 
 .search-box:hover,

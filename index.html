@@ -7,6 +7,11 @@
     <title>K-Map</title>
   </head>
   <body>
+    <div class="background-container">
+      <div class="background-image"></div>
+      <div class="dark-overlay"></div>
+    </div>
+    
     <div class="container">
       <!-- 네비게이션 바 -->
       <nav class="nav-bar">
@@ -16,6 +21,10 @@
           <button class="nav-item" onclick="goToRoulette()">랜덤 여행</button>
         </div>
       </nav>
+      <!-- 문구 영역 -->
+      <div class="quote-container">
+        <p id="quote" class="quote"></p>
+      </div>
 
       <!-- 검색 영역 -->
       <div class="search-area" id="searchArea">
@@ -30,10 +39,7 @@
         <img src="image/Korea.svg" alt="한국 도 지도" />
       </div>
     </div>
-    <div class="background-container">
-      <div class="background-image"></div>
-      <div class="dark-overlay"></div>
-    </div>
+
     <script src="index.js"></script>
   </body>
 </html>
