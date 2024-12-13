@@ -44,7 +44,7 @@ destinations.forEach((destination) => {
   reel.appendChild(item);
 });
 
-function startSpin() {
+window.startSpin = function () {
   if (spinning) return;
 
   spinning = true;
@@ -68,7 +68,7 @@ function startSpin() {
   }, 20);
 }
 
-function stopSpin() {
+window.stopSpin = function () {
   if (!spinning) return;
 
   spinning = false;
@@ -97,7 +97,7 @@ function stopSpin() {
   document.getElementById("stop-button").disabled = true;
 }
 
-function goToRegionPage() {
+window.goToRegionPage = function () {
   if (selectedRegion) {
     const englishRegion = regionMapping[selectedRegion];
     window.location.href = `${englishRegion}.html`;
