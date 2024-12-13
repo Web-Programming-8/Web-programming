@@ -18,11 +18,26 @@
       <!-- 네비게이션 바 -->
       <nav class="nav-bar">
         <div class="nav-items">
-          <button class="nav-item" id="regionInfoNav">지역 정보</button>
-          <button class="nav-item active" id="searchNav">지역 검색</button>
-          <button class="nav-item" onclick="goToRoulette()">랜덤 여행</button>
+            <div class="nav-item-container">
+                <button class="nav-item" id="regionInfoNav">
+                    지역 정보
+                </button>
+                <div class="nav-description">지도를 눌러 각 지역들의 정보를 확인할 수 있어요.</div>
+            </div>
+            <div class="nav-item-container">
+                <button class="nav-item" id="searchNav">
+                    지역 검색
+                </button>
+                <div class="nav-description">지역의 이름으로 원하는 지역을 검색할 수 있어요.</div>
+            </div>
+            <div class="nav-item-container">
+                <button class="nav-item" id="rouletteNav" onclick="goToRoulette()">
+                    랜덤 여행
+                </button>
+                <div class="nav-description">룰렛이 랜덤으로 여행지역을 정해드려요.</div>
+            </div>
         </div>
-      </nav>
+    </nav>
       <!-- 문구 영역 -->
       <div class="quote-container">
         <p id="quote" class="quote"></p>
