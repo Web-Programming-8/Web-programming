@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "image/BG11.jpg",
     "image/BG12.jpg",
   ];
-  
+
   // 문구 배열
   const quotes = [
     "우리는 목적지에 닿아야 행복해지는 것이 아니라 여행하는 과정에서 행복을 느낀다.",
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function () {
     "지금 이 시기가 여행하기 가장 적합한 시기이다.",
     "여행은 사람을 순수하게 그러나 강하게 만든다.",
     "단순하게 살아라. 현대인은 쓸데없는 절차와 일 때문에 얼마나 복잡한 삶을 살아가는가?",
-    "행복은 습관이다, 그것을 몸에 지녀라"
+    "행복은 습관이다, 그것을 몸에 지녀라",
   ];
 
   let currentQuoteIndex = 0;
@@ -111,6 +111,18 @@ document.addEventListener("DOMContentLoaded", function () {
       mapContainer.style.display = "none";
     }
   });
+
+  $.ajax({
+    url: "./map.svg",
+    dataType: "text",
+    success: function (svgData) {
+      document.querySelector("#svg-container").innerHTML = svgData;
+      setupSVGEventHandlers();
+    },
+    error: function (xhr, status, error) {
+      console.error("SVG 로딩 실패:", error);
+    },
+  });
 });
 
 function goToRoulette() {
@@ -122,69 +134,86 @@ function setActiveButton(activeButton) {
   activeButton.classList.add("active");
 }
 
-
 // 시,도 지도 선택 및 색상 변경 코드
 function go_branch(city_do) {
-  var Arr = Array("sejong","chungnam","jeju","gyeongnam","gyeongbuk","jeonbuk","chungbuk","gangwon","gyeonggi","jeonnam","ulsan","busan","daegu","daejeon","incheon","seoul","gwangju");
-  var strArr = Array("세종특별자치시","충청남도","제주특별자치도","경상남도","경상북도","전라북도","충청북도","강원도","경기도","전라남도","울산광역시","부산광역시","대구광역시","대전광역시","인천광역시","서울특별시","광주광역시");
-  var idx = Arr.indexOf(city_do);
+  const regions = [
+    "sejong",
+    "chungnam",
+    "jeju",
+    "gyeongnam",
+    "gyeongbuk",
+    "jeonbuk",
+    "chungbuk",
+    "gangwon",
+    "gyeonggi",
+    "jeonnam",
+    "ulsan",
+    "busan",
+    "daegu",
+    "daejeon",
+    "incheon",
+    "seoul",
+    "gwangju",
+  ];
+  const regionNames = [
+    "세종특별자치시",
+    "충청남도",
+    "제주특별자치도",
+    "경상남도",
+    "경상북도",
+    "전라북도",
+    "충청북도",
+    "강원도",
+    "경기도",
+    "전라남도",
+    "울산광역시",
+    "부산광역시",
+    "대구광역시",
+    "대전광역시",
+    "인천광역시",
+    "서울특별시",
+    "광주광역시",
+  ];
+  const idx = regions.indexOf(city_do);
+  if (idx !== -1) {
+    console.log(`${regionNames[idx]} (${city_do}) 선택됨`);
+  }
 }
-$(document).ready(function () {
+
+// SVG 이벤트 핸들러 설정
+function setupSVGEventHandlers() {
+  const svgPaths = document.querySelectorAll("#svg-container path"); // 모든 path 선택
   let selectedPath = null;
 
-  // Hover 시 색상 변경
-  $(".dg-map svg").mouseover(function (event) {
-      const _path = event.target;
-      if (_path !== selectedPath) {
-          d3.select(_path).style("fill", "#cbc3ac");
+  svgPaths.forEach((path) => {
+    // 마우스 오버 이벤트
+    path.addEventListener("mouseover", function () {
+      if (path !== selectedPath) {
+        path.style.fill = "#cbc3ac"; // 호버 시 색상 변경
       }
-  }).mouseout(function (event) {
-      const _path = event.target;
-      if (_path !== selectedPath) {
-          d3.select(_path).style("fill", "#fff");
-      }
-  });
+    });
 
-  // 클릭 시 하나의 지역만 선택 가능
-  $(".dg-map svg").click(function (event) {
-      const _path = event.target;
+    // 마우스 아웃 이벤트
+    path.addEventListener("mouseout", function () {
+      if (path !== selectedPath) {
+        path.style.fill = "#fff"; // 기본 색상으로 복구
+      }
+    });
+
+    // 클릭 이벤트
+    path.addEventListener("click", function () {
       if (selectedPath) {
-          d3.select(selectedPath).style("fill", "#fff");
+        selectedPath.style.fill = "#fff"; // 이전 선택 색상 초기화
       }
-      selectedPath = _path;
-      d3.select(selectedPath).style("fill", "#cbc3ac");
-      go_branch(_path.id);
+      selectedPath = path; // 새 선택
+      selectedPath.style.fill = "#cbc3ac"; // 클릭한 항목 색상 변경
+      go_branch(path.id); // ID 기반으로 동작
+    });
   });
-});
+}
 
-
-$(document).ready(function () {
-    const mapCondition = '<?=$stx?>';
-    if (mapCondition) {
-        const cityIdMap = {
-            '세종특별자치시': 'sejong',
-            '충청남도': 'chungnam',
-            '제주특별자치도': 'jeju',
-            '경상남도': 'gyeongnam',
-            '경상북도': 'gyeongbuk',
-            '전라북도': 'jeonbuk',
-            '충청북도': 'chungbuk',
-            '강원도': 'gangwon',
-            '경기도': 'gyeonggi',
-            '전라남도': 'jeonnam',
-            '울산광역시': 'ulsan',
-            '부산광역시': 'busan',
-            '대구광역시': 'daegu',
-            '대전광역시': 'daejeon',
-            '인천광역시': 'incheon',
-            '서울특별시': 'seoul',
-            '광주광역시': 'gwangju'
-        };
-
-        const cityId = cityIdMap[mapCondition];
-        if (cityId) {
-            $(`#${cityId}`).css("fill", "#cbc3ac");
-        }
-      }
-  });
-
+// 선택된 지역 정보를 처리하는 함수
+function go_branch(cityId) {
+  console.log(`Selected city: ${cityId}`);
+  // 지역에 대한 추가 동작 수행
+}
