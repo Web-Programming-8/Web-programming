@@ -180,40 +180,59 @@ function go_branch(city_do) {
   }
 }
 
-// SVG 이벤트 핸들러 설정
-function setupSVGEventHandlers() {
-  const svgPaths = document.querySelectorAll("#svg-container path"); // 모든 path 선택
-  let selectedPath = null;
+// 시/도 지도 색상 선택 관련 함수
+  function setupSVGEventHandlers() {
+    const svgElements = document.querySelectorAll("#svg-container polyline, #svg-container path");
+    let selectedElement = null;
 
-  svgPaths.forEach((path) => {
-    // 마우스 오버 이벤트
-    path.addEventListener("mouseover", function () {
-      if (path !== selectedPath) {
-        path.style.fill = "#cbc3ac"; // 호버 시 색상 변경
-      }
+    svgElements.forEach((element) => {
+      element.addEventListener("mouseover", () => {
+        if (element !== selectedElement) {
+          element.style.stroke = "#cbc3ac"; // 호버 시 선 색상 변경
+          element.style.fill = "rgb(34, 155, 75)";
+
+        }
+      });
+
+      // 마우스 아웃 이벤트
+      element.addEventListener("mouseout", () => {
+        if (element !== selectedElement) {
+          element.style.stroke = "#cbc3ac"; // 기본 선 색상 복구
+          element.style.fill = "#fff"; // 내부 색상 복구
+        }
+      });
+
+      // 클릭 이벤트
+      element.addEventListener("click", () => {
+        if (selectedElement) {
+          selectedElement.style.stroke = "#cbc3ac";
+          selectedElement.style.fill = "#fff";
+        }
+
+        selectedElement = element;
+        selectedElement.style.stroke = "#cbc3ac";
+        selectedElement.style.fill = "rgb(34, 139, 69)"
+
+        go_branch(element.id);
+      });
     });
+  }
 
-    // 마우스 아웃 이벤트
-    path.addEventListener("mouseout", function () {
-      if (path !== selectedPath) {
-        path.style.fill = "#fff"; // 기본 색상으로 복구
+  function go_branch(cityId) {
+    console.log(`Selected city: ${cityId}`);
+  }
+
+  // SVG 로드 후 이벤트 설정
+  fetch("map.svg")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
-    });
-
-    // 클릭 이벤트
-    path.addEventListener("click", function () {
-      if (selectedPath) {
-        selectedPath.style.fill = "#fff"; // 이전 선택 색상 초기화
-      }
-      selectedPath = path; // 새 선택
-      selectedPath.style.fill = "#cbc3ac"; // 클릭한 항목 색상 변경
-      go_branch(path.id); // ID 기반으로 동작
-    });
-  });
-}
-
-// 선택된 지역 정보를 처리하는 함수
-function go_branch(cityId) {
-  console.log(`Selected city: ${cityId}`);
-  // 지역에 대한 추가 동작 수행
-}
+      return response.text();
+    })
+    .then((svgContent) => {
+      const svgContainer = document.querySelector("#svg-container");
+      svgContainer.innerHTML = svgContent;
+      setupSVGEventHandlers();
+    })
+    .catch((error) => console.error("SVG 로드 실패:", error));
