@@ -3,50 +3,64 @@ body {
   text-align: center;
   margin-top: 100px;
   padding: 0;
-  height: 100vh;
+  height: 100vh; /* 화면 전체 높이를 채움 */
   background-color: #f8f9fa;
   display: flex;
 
-  flex-direction: column;
-  justify-content: top;
-  align-items: center;
+  flex-direction: column; /* 세로 정렬 */
+  justify-content: top; /* 수직 중앙 정렬 */
+  align-items: center; /* 수평 중앙 정렬 */
+  background: url('image/back.png') no-repeat center center/cover;
+}
+
+.title-box {
+  background-color: rgba(0, 0, 0, 0.6); /* 배경에 반투명 색상 추가 */
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 30px; /* 제목을 조금 내리기 */
+}
+
+h1 {
+  font-size: 36px;
+  margin: 0; /* 기본 마진 제거 */
 }
 
 .slot-container {
   display: flex;
-  flex-direction: column;
-  margin-top: 100px;
-  align-items: center;
-  transform: scale(1.2);
+  flex-direction: column; /* 이미지를 위에 배치 */
+  margin-top : 100px;
+  align-items: center;    /* 슬롯 머신을 중앙 정렬 */
+  transform : scale(1.2);
 }
 
 .slot-roof {
   width: 480px;
-  z-index: 1;
-  top: 10px;
-  display: block;
+  z-index : 1;
+  top : 10px;
+  display: block; /* 이미지를 블록 요소로 */
 }
 
 .slot-machine {
   width: 300px;
   height: 120px;
   overflow: hidden;
-  position: relative;
-  z-index: 2;
+  position : relative;
+  z-index : 2;
   border: 5px solid #e7f2aa;
-  border-top: none;
+  border-top: none; /* 상단 테두리 제거 */
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   background-color: #f1f1f1;
-  margin-top: -10px;
-  margin-bottom: 15px;
+  margin-top : -10px;
+  margin-bottom : 15px;
   margin-bottom: 0;
 }
 
 .slot-floor {
   width: 480px;
-  margin-top: -15px;
-  display: block;
+  margin-top : -15px;
+  display: block; /* 이미지를 블록 요소로 */
 }
 
 .reel {
@@ -66,13 +80,11 @@ body {
 
 .buttons-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
+  flex-wrap: wrap; /* 버튼이 화면 크기에 따라 줄 바꿈 가능 */
+  justify-content: center; /* 버튼들을 가운데 정렬 */
+  gap: 10px; /* 버튼 사이 간격 */
 }
-#spin-button,
-#stop-button,
-#region-link {
+#spin-button, #stop-button, #region-link {
   padding: 18px 36px;
   font-size: 24px;
   background-color: #e092ee;
@@ -83,9 +95,7 @@ body {
   margin: 12px;
 }
 
-#spin-button:hover,
-#stop-button:hover,
-#region-link:hover {
+#spin-button:hover, #stop-button:hover, #region-link:hover {
   background-color: #0056b3;
 }
 

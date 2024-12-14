@@ -6,24 +6,24 @@
     <link rel="stylesheet" href="roulette.css" />
   </head>
   <body>
-    <h1>랜덤 여행 추천 슬롯머신</h1>
+    <div class="title-box">
+        <h1>랜덤 여행 추천 슬롯머신</h1>
+    </div>
     <div class="slot-container">
-      <img src="image/roof.png" alt="Slot Machine Image" class="slot-roof" />
-      <div class="slot-machine">
-        <div class="reel" id="reel">
-          <!-- 여행지 항목 -->
-        </div>
-      </div>
-      <img src="image/floor.png" alt="Slot Machine Image" class="slot-floor" />
+        <img src="image/roof.png" alt="Slot Machine Image" class="slot-roof">
+            <div class="slot-machine">
+                <div class="reel" id="reel">
+                    <!-- 여행지 항목 -->
+                </div>
+            </div>
+        <img src="image/floor.png" alt="Slot Machine Image" class="slot-floor">
     </div>
     <div class="buttons-container">
-      <button id="spin-button" onclick="startSpin()">돌리기</button>
-      <button id="stop-button" onclick="stopSpin()" disabled>스탑</button>
-      <br />
+        <button id="spin-button" onclick="startSpin()">돌리기</button>
+        <button id="stop-button" onclick="stopSpin()" disabled>스탑</button>
+        <br>
     </div>
-    <button id="region-link" onclick="goToRegionPage()">
-      이 지역으로 이동
-    </button>
+    <button id="region-link" onclick="goToRegionPage()">이 지역으로 이동</button>
     <script src="roulette.js"></script>
   </body>
 </html>
