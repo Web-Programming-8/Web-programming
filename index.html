@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
-    <title>K-Map</title>
+    <title>KO-Map</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="d3.js"></script>
   </head>
@@ -17,6 +17,9 @@
     <div class="container">
       <!-- 네비게이션 바 -->
       <nav class="nav-bar">
+        <div class="logo">
+          <img src="image/KO-Map.png" alt="KO-Map 로고" />
+        </div>
         <div class="nav-items">
           <div class="nav-item-container">
             <button class="nav-item" id="regionInfoNav">지역 정보</button>
@@ -31,7 +34,11 @@
             </div>
           </div>
           <div class="nav-item-container">
-            <button class="nav-item" id="rouletteNav" onclick="location.href='roulette.html'">
+            <button
+              class="nav-item"
+              id="rouletteNav"
+              onclick="location.href='roulette.html'"
+            >
               랜덤 여행
             </button>
             <div class="nav-description">
