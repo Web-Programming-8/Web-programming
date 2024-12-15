@@ -47,7 +47,7 @@ def add_comment():
 
     if not username or not password or not content:
         flash("모든 칸을 채워주세요.")
-        return redirect(url_for("index"))
+        return redirect(url_for("comment"))
 
     hashed_password = generate_password_hash(password)
     new_comment = Comment(username=username, password=hashed_password, content=content)
