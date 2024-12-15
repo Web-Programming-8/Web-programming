@@ -100,6 +100,6 @@ window.stopSpin = function () {
 window.goToRegionPage = function () {
   if (selectedRegion) {
     const englishRegion = regionMapping[selectedRegion];
-    window.location.href = `${englishRegion}.html`;
+    window.location.href = `/${englishRegion}`;
   }
 }

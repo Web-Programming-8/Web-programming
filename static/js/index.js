@@ -16,18 +16,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 배경 이미지 배열
   const backgrounds = [
-    "image/BG1.jpg",
-    "image/BG2.jpg",
-    "image/BG3.jpg",
-    "image/BG4.jpg",
-    "image/BG5.jpg",
-    "image/BG6.jpg",
-    "image/BG7.jpg",
-    "image/BG8.jpg",
-    "image/BG9.jpg",
-    "image/BG10.jpg",
-    "image/BG11.jpg",
-    "image/BG12.jpg",
+    "/static/images/BG1.jpg",
+    "/static/images/BG2.jpg",
+    "/static/images/BG3.jpg",
+    "/static/images/BG4.jpg",
+    "/static/images/BG5.jpg",
+    "/static/images/BG6.jpg",
+    "/static/images/BG7.jpg",
+    "/static/images/BG8.jpg",
+    "/static/images/BG9.jpg",
+    "/static/imagese/BG10.jpg",
+    "/static/images/BG11.jpg",
+    "/static/images/BG12.jpg",
   ];
 
   // 문구 배열
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   $.ajax({
-    url: "./map.svg",
+    url: "/static/images/map.svg",
     dataType: "text",
     success: function (svgData) {
       document.querySelector("#svg-container").innerHTML = svgData;
