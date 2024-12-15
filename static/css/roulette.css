@@ -10,7 +10,7 @@ body {
   flex-direction: column; /* 세로 정렬 */
   justify-content: top; /* 수직 중앙 정렬 */
   align-items: center; /* 수평 중앙 정렬 */
-  background: url('image/back.png') no-repeat center center/cover;
+  background: url('/static/images/back.png') no-repeat center center/cover;
 }
 
 .title-box {
