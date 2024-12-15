@@ -45,8 +45,8 @@
             {% if posts %}
                 <div class="post-sorting">
                     <select id="sort-posts" onchange="sortPosts()">
-                        <option value="latest">최신순</option>
-                        <option value="likes">좋아요 순</option>
+                        <option value="latest" {% if sort == 'latest' %}selected{% endif %}>최신순</option>
+                        <option value="likes" {% if sort == 'likes' %}selected{% endif %}>좋아요 순</option>
                     </select>
                 </div>
             
@@ -83,9 +83,11 @@
     <script>
         function sortPosts() {
             const sortOption = document.getElementById("sort-posts").value;
-            const currentPath = "{{ url_for('post') }}";
-            window.location.href = `${currentPath}?sort=${sortOption}`;
+            const currentUrl = new URL(window.location.href);
+            currentUrl.searchParams.set("sort", sortOption);
+            window.location.href = currentUrl.toString();
         }
+
         function likePost(postId) {
             fetch(`/like_post/${postId}`, {
                 method: 'POST',

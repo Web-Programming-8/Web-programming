@@ -42,7 +42,7 @@ def post():
         posts = Post.query.order_by(Post.likes.desc()).all()
     else:
         posts = Post.query.order_by(Post.created_at.desc()).all()
-    return render_template("post.html", posts=posts)
+    return render_template("post.html", posts=posts, sort=sort)
 
 
 @app.route("/add_post", methods=["POST"])

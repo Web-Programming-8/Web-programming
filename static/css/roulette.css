@@ -1,16 +1,87 @@
-body {
+html, body {
   font-family: Arial, sans-serif;
   text-align: center;
   margin-top: 100px;
   padding: 0;
   height: 100vh; /* 화면 전체 높이를 채움 */
+  overflow: hidden;
   background-color: #f8f9fa;
   display: flex;
-
   flex-direction: column; /* 세로 정렬 */
   justify-content: top; /* 수직 중앙 정렬 */
   align-items: center; /* 수평 중앙 정렬 */
-  background: url('/static/images/back.png') no-repeat center center/cover;
+  background: url('/static/images/back.png') no-repeat center center;
+  background-size: cover; /* 이미지 비율을 유지하면서 전체 화면 채움 */
+  background-attachment: fixed;
+}
+
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  z-index: 10;
+  flex-wrap: nowrap;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-item {
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 15px 220px;
+  flex: 1;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-description {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 16px;
+  padding: 10px 0;
+  color: white;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0;
+  white-space: nowrap;
+  z-index: 9;
+}
+
+.nav-item:hover + .nav-description {
+  display: block;
+}
+
+.logo img {
+  height: 40px;
+  padding-left: 30px;
+  object-fit: contain;
 }
 
 .title-box {
