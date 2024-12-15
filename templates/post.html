@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KO-Map</title>
+    <link rel="stylesheet" href="/static/css/post.css">
+</head>
+<body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-bar">
+        <div class="logo">
+        <img src="../static/images/KO-Map.png" alt="KO-Map 로고" />
+        </div>
+        <div class="nav-items">
+        <div class="nav-item-container">
+            <button class="nav-item" id="regionInfoNav" onclick="location.href='/'">메인 페이지</button>
+            <div class="nav-description">
+                메인 페이지로 이동해요.
+            </div>
+        </div>
+        <div class="nav-item-container">
+            <button class="nav-item" id="rouletteNav" onclick="location.href='/roulette'">
+            랜덤 여행
+            </button>
+            <div class="nav-description">
+                룰렛이 랜덤으로 여행지역을 정해드려요.
+            </div>
+        </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="post-form-container">
+            <h2>여행 경험 공유</h2>
+            <form action="/add_post" method="POST" enctype="multipart/form-data" class="post-form">
+                <input type="text" name="username" placeholder="닉네임" required>
+                <textarea name="content" placeholder="게시물 내용을 입력하세요..." required></textarea>
+                <input type="password" name="password" placeholder="비밀번호" required>
+                <input type="file" name="image" accept="image/*">
+                <button type="submit">게시물 작성</button>
+            </form>
+        </div>
+
+        <div class="post-list-container">
+            {% if posts %}
+                <div class="post-sorting">
+                    <select id="sort-posts" onchange="sortPosts()">
+                        <option value="latest">최신순</option>
+                        <option value="likes">좋아요 순</option>
+                    </select>
+                </div>
+            
+                <div class="post-list">
+                    {% for post in posts %}
+                    <div class="post-box">
+                        <div class="post-header">
+                            <span class="username">{{ post.username }}</span>
+                            <span class="date">{{ post.created_at.strftime('%Y-%m-%d %H:%M:%S') }}</span>
+                        </div>
+                        {% if post.image_url %}
+                        <img src="/static/{{ post.image_url }}" class="post-image" alt="Post Image">
+                        {% endif %}
+                        <p class="post-content">{{ post.content }}</p>
+                        <div class="post-actions">
+                            <div class="likes">❤️ <span id="likes-{{ post.id }}">{{ post.likes }}</span> Likes</div>
+                            <button type="button" class="like-button" onclick="likePost({{ post.id }})">좋아요</button>
+                        </div>
+                        <div class="delete-section">
+                            <form action="{{ url_for('delete_post', post_id=post.id) }}" method="POST">
+                                <input type="password" name="password" placeholder="비밀번호 입력" required>
+                                <button type="submit" class="delete-button">삭제</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h1>게시물이 없습니다.</h1>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function sortPosts() {
+            const sortOption = document.getElementById("sort-posts").value;
+            const currentPath = "{{ url_for('post') }}";
+            window.location.href = `${currentPath}?sort=${sortOption}`;
+        }
+        function likePost(postId) {
+            fetch(`/like_post/${postId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById(`likes-${postId}`).innerText = data.likes;
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
