@@ -6,6 +6,8 @@ from flask import (
     redirect,
     url_for,
     flash,
+    abort,
+    send_from_directory,
 )
 from models import db, Post, Region, City
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -19,13 +21,11 @@ app.secret_key = os.urandom(24)
 
 
 def insert_region_data():
-    # JSON 파일 읽기
     with open("regions.json", "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # 1. 광역시 처리
     if "광역시" in data:
-        for city in data["광역시"]:  # 각 city는 {"name": "...", "code": "..."} 형태
+        for city in data["광역시"]:
             region_name = city["name"]
             region_code = city["code"]
 
@@ -36,27 +36,21 @@ def insert_region_data():
                 db.session.add(region)
                 db.session.commit()
 
-    # 2. 도 처리
     for region_name, region_data in data.items():
-        if region_name == "광역시":  # 이미 처리한 항목
+        if region_name == "광역시":
             continue
-
         region_code = region_data["code"]
         cities = region_data["cities"]
-
-        # Region 추가
         region = Region.query.filter_by(name=region_name).first()
         if not region:
             region = Region(name=region_name, code=region_code)
             db.session.add(region)
             db.session.commit()
 
-        # City 추가
-        for city in cities:  # 각 city는 {"name": "...", "code": "..."} 형태
+        for city in cities:
             city_name = city["name"]
             city_code = city["code"]
 
-            # City가 이미 있는지 확인 후 추가
             existing_city = City.query.filter_by(
                 name=city_name, region_id=region.id
             ).first()
@@ -65,6 +59,15 @@ def insert_region_data():
                 db.session.add(new_city)
 
     db.session.commit()
+
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        os.path.join(app.root_path, "static", "images"),
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon",
+    )
 
 
 @app.route("/")
@@ -77,11 +80,17 @@ def roulette():
     return render_template("roulette.html")
 
 
-@app.route(
-    "/seoul"
-)  # 나중에는 데이터베이스나 문자열 이런거 받아서 그쪽으로 넘겨줄 예정
-def destination():
-    return render_template("seoul.html")
+@app.route("/random")
+def random():
+    return render_template("random.html")
+
+
+@app.route("/city/<city_name>")
+def city(city_name):
+    try:
+        return render_template(f"city/{city_name}.html")
+    except Exception:
+        abort(404)
 
 
 @app.route("/post")
