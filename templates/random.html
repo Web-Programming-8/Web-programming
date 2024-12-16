@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>랜덤 여행 추천</title>
-    <link rel="stylesheet" href="random.css" />
+    <link rel="stylesheet" href="/static/css/random.css" />
   </head>
   <body>
     <!-- 컨테이너 -->
@@ -32,16 +32,16 @@
     <!-- 로딩 애니메이션 -->
     <div id="loading" class="loading hidden">
       <div class="bus-container">
-        <img src="image/bus.png" alt="버스" class="bus" />
+        <img src="/static/image/bus.png" alt="버스" class="bus" />
       </div>
       <p class="loading-text">여행지를 향해 이동 중...</p>
     </div>
 
     <!-- 배경음악 및 효과음 -->
-    <audio id="bgm" src="audio/roulette-background.mp3" preload="auto"></audio>
-    <audio id="buttonSound" src="audio/button.mp3"></audio>
-    <audio id="placeSound" src="audio/place-reveal.mp3"></audio>
+    <audio id="bgm" src="/static/audio/roulette-background.mp3" preload="auto"></audio>
+    <audio id="buttonSound" src="/static/audio/button.mp3"></audio>
+    <audio id="placeSound" src="/static/audio/place-reveal.mp3"></audio>
 
-    <script src="random.js"></script>
+    <script src="/static/js/random.js"></script>
   </body>
 </html>
