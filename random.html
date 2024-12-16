@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>랜덤 여행 추천</title>
+    <link rel="stylesheet" href="random.css" />
+  </head>
+  <body>
+    <!-- 컨테이너 -->
+    <div class="container">
+      <h1>랜덤 여행 추천</h1>
+      <!-- 추천 박스 -->
+      <div class="recommendation-box">
+        <div class="image-container">
+          <p>추천 장소가 여기 표시됩니다!</p>
+        </div>
+      </div>
+      <!-- 처음 버튼 -->
+      <div id="initialButton" class="button-group">
+        <button onclick="startRandomRecommendation()"></button>
+      </div>
+      <!-- 카테고리 버튼 -->
+      <div id="categoryButtons" class="button-group hidden">
+        <button onclick="startRecommendation('휴식지')">휴식지</button>
+        <button onclick="startRecommendation('액티비티')">액티비티</button>
+        <button onclick="startRecommendation('감성')">감성</button>
+        <button onclick="startRecommendation('신상여행지')">신상여행지</button>
+      </div>
+    </div>
+
+    <!-- 로딩 애니메이션 -->
+    <div id="loading" class="loading hidden">
+      <div class="bus-container">
+        <img src="image/bus.png" alt="버스" class="bus" />
+      </div>
+      <p class="loading-text">여행지를 향해 이동 중...</p>
+    </div>
+
+    <!-- 배경음악 및 효과음 -->
+    <audio id="bgm" src="audio/roulette-background.mp3" preload="auto"></audio>
+    <audio id="buttonSound" src="audio/button.mp3"></audio>
+    <audio id="placeSound" src="audio/place-reveal.mp3"></audio>
+
+    <script src="random.js"></script>
+  </body>
+</html>
