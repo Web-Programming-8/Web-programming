@@ -1,0 +1,133 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "VT323", monospace;
+  background-color: #21898c;
+  text-align: center;
+}
+
+.container {
+  padding: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  color: blanchedalmond;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 0px #333;
+}
+
+/* 추천 박스 */
+.recommendation-box {
+  position: relative;
+  margin: 0 auto;
+  width: 1000px;
+  height: 700px;
+  background-image: url("image/road.png");
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+#initialButton button {
+  background-image: url("image/start.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 200px;
+  height: 70px;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.1s ease;
+}
+
+#initialButton button:hover {
+  transform: scale(1.1);
+}
+
+.button-group button {
+  padding: 15px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  background-image: url("image/button.png");
+  background-color: transparent;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  width: 150px;
+  height: 50px;
+  box-shadow: 2px 2px 0px #333;
+  transition: transform 0.1s ease;
+}
+
+.button-group button:hover {
+  transform: scale(1.1);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.hidden {
+  display: none;
+}
+
+/* 로딩 애니메이션 */
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 999;
+}
+
+.bus-container {
+  position: relative;
+  width: 300px;
+  height: 100px;
+  overflow: hidden;
+}
+
+.bus {
+  position: absolute;
+  width: 120px;
+  animation: move-bus 2s linear infinite;
+}
+
+@keyframes move-bus {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(120%);
+  }
+}
+
+.loading-text {
+  font-size: 16px;
+  text-transform: uppercase;
+  animation: text-blink 1.5s infinite steps(2);
+}
+
+@keyframes text-blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
