@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동두천시 지역정보 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        section {
+            margin: 2rem;
+        }
+        .highlight-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .image-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+        }
+
+        .highlight-image {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .image-container:hover .highlight-image {
+            transform: scale(1.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .image-description {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .image-container:hover .image-description {
+            opacity: 1;
+            visibility: visible;
+        }
+        .places-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .places-image {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        h1, h2 {
+            color: #333;
+        }
+        .info-block {
+            margin-bottom: 1.5rem;
+        }
+        .info-block h2 {
+            margin-bottom: 0.5rem;
+        }
+        ul {
+            padding-left: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+
+<section>
+    <div class="info-block">
+        <h2>동두천시</h2>
+        <p>경기도 북부에 위치한 군사적, 자연적 특징을 지닌 도시</p>
+    </div>
+
+    <div class="highlight-box">
+        <div class="image-container">
+            <img src="image/city/dongducheon-image.png" class="highlight-image">
+            <div class="image-description">
+                동두천시의 상징 이미지
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="image/city/dongducheon-character.png" class="highlight-image">
+            <div class="image-description">
+                동두천시의 상징 캐릭터
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="image/city/dongducheon-slogan.png" class="highlight-image">
+            <div class="image-description">
+                동두천시의 슬로건
+            </div>
+        </div>
+    </div>
+
+    <div class="info-block">
+        <h2>동두천은 어떤 곳인가요?</h2>
+        <hr>
+        <p>
+            동두천시는 경기도 북부에 위치하며, 군사적 중요성으로 알려져 있다. 
+            또한 자연경관과 산악 지역으로도 유명하며, 미군기지가 위치해 있어 국제적인 특성을 갖고 있다.
+        </p>
+    </div>
+
+    <div class="info-block">
+        <h2>동두천에서 가볼만한 곳</h2>
+        <hr>
+        <div class="places-container">
+            <ul>
+                <li>동두천 별장지구</li>
+                <li>동두천 평화의 댐</li>
+                <li>동두천 가평천</li>
+            </ul>
+            <img src="image/city/dongducheon-best.png" class="places-image">
+        </div>
+    </div>
+
+    <div class="info-block">
+        <h2>동두천에서 꼭 먹어야 하는 것</h2>
+        <hr>
+        <ul>
+            <li>동두천 불고기</li>
+            <li>동두천 떡</li>
+            <li>동두천 참기름</li>
+        </ul>
+    </div>
+</section>
+
+</body>
+</html>
