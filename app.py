@@ -240,15 +240,14 @@ def delete_post(post_id):
 
         db.session.delete(post)
         db.session.commit()
-        flash("게시물이 삭제되었습니다.")
+        return '<script>alert("게시물이 삭제되었습니다."); window.location.href="/post"</script>'
     else:
-        flash("비밀번호가 일치하지 않습니다.")
-    return redirect(url_for("post"))
+        return '<script>alert("비밀번호가 일치하지 않습니다."); history.go(-1)</script>'
 
 
 @app.route("/like_post/<int:post_id>", methods=["POST"])
 def like_post(post_id):
-    post = Post.query.get(post_id)
+    post = db.session.get(Post, post_id)
     if post:
         post.likes += 1
         db.session.commit()
