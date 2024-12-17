@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
-body {
+html, body {
     font-family: 'Montserrat', sans-serif;
     background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
     margin: 0;
     padding: 0;
     color: #333;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
 }
 
 
@@ -87,7 +90,9 @@ body {
     cursor: pointer;
 }
 
-/* 컨테이너 */
+h1 {
+    text-align: center;
+}
 .container {
     max-width: 600px;
     width: 100%;
@@ -98,7 +103,7 @@ body {
     padding: 0 15px;
 }
 
-/* 게시물 작성 폼 */
+
 .post-form-container {
     background-color: #ffffff;
     padding: 25px;

@@ -108,6 +108,7 @@ def search():
             if key == query:  # 정확히 일치해야 리다이렉트
                 return redirect(f"/city/{code}")
 
+        # 광주 검색 시 광주광역시와 경기도 광주시 모두 표시
         if query == "광주":
             regions = Region.query.filter(Region.name.contains("광주")).all()
             for region in regions:
@@ -121,6 +122,7 @@ def search():
                     {"name": city.name, "code": city.code, "type": "city"}
                 )
 
+        # 제주도 예외 처리
         elif query in ["제주", "제주도", "제주특별자치도"]:
             jeju_region = Region.query.filter_by(name="제주특별자치도").first()
             if jeju_region:
@@ -129,6 +131,7 @@ def search():
                     {"region_name": jeju_region.name, "cities": cities_in_region}
                 )
 
+        # 경상, 충청, 전라 + 도 처리
         elif query in ["경상", "경상도", "충청", "충청도", "전라", "전라도"]:
             region_keywords = {
                 "경상": ["경상북도", "경상남도"],
@@ -147,6 +150,23 @@ def search():
                         {"region_name": region.name, "cities": cities_in_region}
                     )
 
+        # 남/북도 이름 정확히 입력 시 도시 목록 표시
+        elif query in [
+            "전라북도",
+            "전라남도",
+            "경상북도",
+            "경상남도",
+            "충청북도",
+            "충청남도",
+        ]:
+            region = Region.query.filter_by(name=query).first()
+            if region:
+                cities_in_region = City.query.filter_by(region_id=region.id).all()
+                regions_with_cities.append(
+                    {"region_name": region.name, "cities": cities_in_region}
+                )
+
+        # 경기도, 강원도
         elif query in ["경기도", "강원도"]:
             region = Region.query.filter_by(name=query).first()
             if region:
@@ -155,6 +175,7 @@ def search():
                     {"region_name": region.name, "cities": cities_in_region}
                 )
 
+        # 일반 검색 결과 처리
         else:
             regions = Region.query.filter(Region.name.contains(query)).all()
             cities = City.query.filter(City.name.contains(query)).all()
