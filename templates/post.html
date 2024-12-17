@@ -76,7 +76,7 @@
                         {% endif %}
                         <p class="post-content">{{ post.content }}</p>
                         <div class="post-actions">
-                            <div class="likes">❤️ <span id="likes-{{ post.id }}">{{ post.likes }}</span> Likes</div>
+                            <div class="likes"><span id="likes-{{ post.id }}">{{ post.likes }}</span> Likes</div>
                             <button type="button" class="like-button" onclick="likePost({{ post.id }})">좋아요</button>
                         </div>
                         <div class="delete-section">
