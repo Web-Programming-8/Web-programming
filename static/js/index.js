@@ -125,8 +125,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
-
 function setActiveButton(activeButton) {
   [searchNav, regionInfoNav].forEach((btn) => btn.classList.remove("active"));
   activeButton.classList.add("active");
@@ -180,50 +178,51 @@ function go_branch(city_do) {
 
 // 시/도 지도 색상 선택 관련 함수
 function setupSVGEventHandlers() {
-  const svgElements = document.querySelectorAll("#svg-container polyline, #svg-container path");
+  const svgElements = document.querySelectorAll(
+    "#svg-container polyline, #svg-container path"
+  );
   let selectedElement = null;
 
   svgElements.forEach((element) => {
     element.addEventListener("mouseover", () => {
       if (element !== selectedElement) {
         element.style.stroke = "#cbc3ac"; // 호버 시 선 색상 변경
-        element.style.fill = "rgb(34, 155, 75)";
-
+        element.style.fill = "#E4ECF1";
       }
     });
 
-      // 마우스 아웃 이벤트
+    // 마우스 아웃 이벤트
     element.addEventListener("mouseout", () => {
       if (element !== selectedElement) {
-         element.style.stroke = "#cbc3ac"; // 기본 선 색상 복구
-         element.style.fill = "#fff"; // 내부 색상 복구
-       }
-     });
-      // 클릭 이벤트
-     element.addEventListener("click", () => {
-       if (selectedElement) {
-         selectedElement.style.stroke = "#cbc3ac";
-         selectedElement.style.fill = "#fff";
-       }
-       selectedElement = element;
-       selectedElement.style.stroke = "#cbc3ac";
-       selectedElement.style.fill = "rgb(34, 139, 69)"
+        element.style.stroke = "#cbc3ac"; // 기본 선 색상 복구
+        element.style.fill = "#fff"; // 내부 색상 복구
+      }
+    });
+    // 클릭 이벤트
+    element.addEventListener("click", () => {
+      if (selectedElement) {
+        selectedElement.style.stroke = "#cbc3ac";
+        selectedElement.style.fill = "#fff";
+      }
+      selectedElement = element;
+      selectedElement.style.stroke = "#cbc3ac";
+      selectedElement.style.fill = "#D9E2E8";
 
-       go_branch(element.id);
-     });
-   });
- }
+      go_branch(element.id);
+    });
+  });
+}
 
- function go_branch(cityId) {
-   console.log(`Selected city: ${cityId}`);
- }
+function go_branch(cityId) {
+  console.log(`Selected city: ${cityId}`);
+}
 
-  // SVG 로드 후 이벤트 설정
+// SVG 로드 후 이벤트 설정
 fetch("map.svg")
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
-     }
+    }
     return response.text();
   })
   .then((svgContent) => {
