@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/index.css" />
     <title>KO-Map</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -22,26 +22,23 @@
         </div>
         <div class="nav-items">
           <div class="nav-item-container">
-            <button class="nav-item" id="regionInfoNav">지역 정보</button>
-            <div class="nav-description">
-              지도를 눌러 각 지역들의 정보를 확인할 수 있어요.
-            </div>
+            <button class="nav-item" id="regionInfoNav">지도 탐색</button>
+            <div class="nav-description">대한민국의 지도를 탐색해보세요</div>
           </div>
           <div class="nav-item-container">
             <button class="nav-item" id="searchNav">지역 검색</button>
-            <div class="nav-description">
-              지역의 이름으로 원하는 지역을 검색할 수 있어요.
-            </div>
+            <div class="nav-description">원하는 지역을 검색해보세요</div>
           </div>
           <div class="nav-item-container">
-            <button class="nav-item" id="rouletteNav" onclick="location.href='/roulette'">
+            <button
+              class="nav-item"
+              id="rouletteNav"
+              onclick="location.href='/roulette'"
+            >
               랜덤 여행
             </button>
-            <div class="nav-description">
-              룰렛이 랜덤으로 여행지역을 정해드려요.
-            </div>
+            <div class="nav-description">룰렛으로 여행지를 정해보세요</div>
           </div>
-          <!-- 여행지 추천 버튼 추가 -->
           <div class="nav-item-container">
             <button
               class="nav-item"
@@ -50,19 +47,19 @@
             >
               여행지 추천
             </button>
-            <div class="nav-description">
-              여행지를 추천해드려요.
-            </div>
+            <div class="nav-description">새로운 여행지를 추천받아보세요</div>
           </div>
           <div class="nav-item-container">
-            <button class="nav-item" id="postNav" onclick="location.href='/post'">
+            <button
+              class="nav-item"
+              id="postNav"
+              onclick="location.href='/post'"
+            >
               여행 경험 공유
             </button>
-            <div class="nav-description">
-              다른 이용자와 여행 경험을 공유할 수 있어요.
-            </div>
+            <div class="nav-description">여행 이야기를 공유해보세요</div>
+          </div>
         </div>
-      </div>
       </nav>
       <!-- 문구 영역 -->
       <div class="quote-container">
@@ -72,8 +69,17 @@
       <!-- 검색 영역 -->
       <div class="search-area" id="searchArea">
         <div class="search-box">
-          <form action="{{ url_for('search') }}" method="get" class="search-box">
-            <input type="text" name="query" placeholder="원하는 지역을 입력하세요" required />
+          <form
+            action="{{ url_for('search') }}"
+            method="get"
+            class="search-box"
+          >
+            <input
+              type="text"
+              name="query"
+              placeholder="원하는 지역을 입력하세요"
+              required
+            />
             <button type="submit" class="search-button">검색</button>
           </form>
         </div>
