@@ -85,6 +85,99 @@ def random():
     return render_template("random.html")
 
 
+@app.route("/search")
+def search():
+    query = request.args.get("query", "").strip()
+    search_results = []  # 일반 검색 결과 (광역시, 도시)
+    regions_with_cities = []  # 도와 그에 속한 도시 목록을 저장
+
+    if query:
+        # 명확한 광역시/특별시 예외 처리
+        redirect_cities = {
+            "서울": "seoul",
+            "부산": "busan",
+            "대구": "daegu",
+            "인천": "incheon",
+            "대전": "daejeon",
+            "울산": "ulsan",
+            "세종": "sejong",
+            "세종시": "sejong",
+        }
+
+        # 특정 광역시 검색 시 바로 리다이렉트
+        for key, code in redirect_cities.items():
+            if key == query:  # 정확히 일치해야 리다이렉트
+                return redirect(f"/city/{code}")
+
+        if query == "광주":
+            regions = Region.query.filter(Region.name.contains("광주")).all()
+            for region in regions:
+                search_results.append(
+                    {"name": region.name, "code": region.code, "type": "region"}
+                )
+
+            cities = City.query.filter(City.name.contains("광주")).all()
+            for city in cities:
+                search_results.append(
+                    {"name": city.name, "code": city.code, "type": "city"}
+                )
+
+        elif query in ["제주", "제주도", "제주특별자치도"]:
+            jeju_region = Region.query.filter_by(name="제주특별자치도").first()
+            if jeju_region:
+                cities_in_region = City.query.filter_by(region_id=jeju_region.id).all()
+                regions_with_cities.append(
+                    {"region_name": jeju_region.name, "cities": cities_in_region}
+                )
+
+        elif query in ["경상", "경상도", "충청", "충청도", "전라", "전라도"]:
+            region_keywords = {
+                "경상": ["경상북도", "경상남도"],
+                "경상도": ["경상북도", "경상남도"],
+                "충청": ["충청북도", "충청남도"],
+                "충청도": ["충청북도", "충청남도"],
+                "전라": ["전라북도", "전라남도"],
+                "전라도": ["전라북도", "전라남도"],
+            }
+
+            for region_name in region_keywords[query]:
+                region = Region.query.filter_by(name=region_name).first()
+                if region:
+                    cities_in_region = City.query.filter_by(region_id=region.id).all()
+                    regions_with_cities.append(
+                        {"region_name": region.name, "cities": cities_in_region}
+                    )
+
+        elif query in ["경기도", "강원도"]:
+            region = Region.query.filter_by(name=query).first()
+            if region:
+                cities_in_region = City.query.filter_by(region_id=region.id).all()
+                regions_with_cities.append(
+                    {"region_name": region.name, "cities": cities_in_region}
+                )
+
+        else:
+            regions = Region.query.filter(Region.name.contains(query)).all()
+            cities = City.query.filter(City.name.contains(query)).all()
+
+            for region in regions:
+                search_results.append(
+                    {"name": region.name, "code": region.code, "type": "region"}
+                )
+
+            for city in cities:
+                search_results.append(
+                    {"name": city.name, "code": city.code, "type": "city"}
+                )
+
+    return render_template(
+        "search.html",
+        results=search_results,
+        query=query,
+        regions_with_cities=regions_with_cities,
+    )
+
+
 @app.route("/city/<city_name>")
 def city(city_name):
     try:

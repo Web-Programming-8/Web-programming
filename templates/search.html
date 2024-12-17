@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>검색 결과</title>
+</head>
+<body>
+    <h1>검색 결과</h1>
+    <p>검색어: <strong>{{ query }}</strong></p>
+
+    <!-- 특정 도의 도시 목록 -->
+    {% if regions_with_cities %}
+        {% for region in regions_with_cities %}
+            <h2>{{ region.region_name }}</h2>
+            <ul>
+                {% for city in region.cities %}
+                    <li>
+                        <a href="/city/{{ city.code }}">{{ city.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+    {% endif %}
+
+    <!-- 일반 검색 결과 (광역시와 도시) -->
+    {% if results %}
+        <h2>일반 검색 결과</h2>
+        <ul>
+            {% for result in results %}
+                <li>
+                    <a href="/city/{{ result['code'] }}">{{ result['name'] }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif not regions_with_cities %}
+        <p>검색 결과가 없습니다.</p>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">홈으로 돌아가기</a>
+</body>
+</html>
