@@ -18,16 +18,16 @@ html, body {
 .nav-bar {
   position: fixed;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   z-index: 10;
-  flex-wrap: nowrap;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .nav-items {
@@ -35,27 +35,38 @@ html, body {
   justify-content: space-around;
   align-items: center;
   width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
+  flex-wrap: wrap;
 }
 
 .nav-item {
+  flex: 1;
+  text-align: center;
+  padding: 15px 10px;
   font-size: 16px;
   color: white;
   text-decoration: none;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
   background: none;
   border: none;
   cursor: pointer;
-  padding: 15px 220px;
-  flex: 1;
-  text-align: center;
-  transition: background-color 0.3s ease;
   display: flex;
   justify-content: center;
   align-items: center;
-  white-space: nowrap;
 }
+
 
 .nav-item:hover {
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 1920px) {
+  .nav-item {
+      padding: 15px 15px;
+      font-size: 15px;
+  }
 }
 
 .nav-description {
