@@ -78,17 +78,9 @@
 
 
             {% if results %}
-                <h2>일반 검색 결과</h2>
                 <div class="city-cards-container">
                     {% for result in results %}
-                        <div class="city-card"
-                             {% if result['type'] == 'region' %}
-                                onclick="location.href='/region/{{ result['code'] }}'"
-                             {% else %}
-                                onclick="location.href='/city/{{ result['code'] }}'"
-                             {% endif %}>
-                             
-                            <!-- region 타입도 city 폴더의 이미지를 사용하도록 변경 -->
+                        <div class="city-card" onclick="location.href='/city/{{ result['code'] }}'">
                             <img src="/static/images/city/{{ result['code'] }}-symbol.png"
                                  alt="{{ result['name'] }} 이미지"
                                  onerror="
