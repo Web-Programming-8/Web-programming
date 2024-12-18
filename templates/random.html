@@ -5,20 +5,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>랜덤 여행 추천</title>
     <link rel="stylesheet" href="/static/css/random.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <!-- 네비게이션 바 -->
+    <nav class="nav-bar">
+      <div class="logo">
+        <img src="/static/images/KO-Map.png" alt="KO-Map 로고" />
+      </div>
+      <div class="nav-items">
+        <div class="nav-item-container">
+          <button class="nav-item" id="mainPageNav" onclick="location.href='/'">
+            메인 페이지
+          </button>
+          <div class="nav-description">메인 페이지로 이동해요.</div>
+        </div>
+        <div class="nav-item-container">
+          <button
+            class="nav-item"
+            id="rouletteNav"
+            onclick="location.href='/roulette'"
+          >
+            랜덤 여행
+          </button>
+          <div class="nav-description">
+            룰렛이 랜덤으로 여행지역을 정해드려요.
+          </div>
+        </div>
+        <div class="nav-item-container">
+          <button
+            class="nav-item"
+            id="recommendationNav"
+            onclick="location.href='/post'"
+          >
+            여행 경험 공유
+          </button>
+          <div class="nav-description">여행 이야기를 공유해보세요</div>
+        </div>
+      </div>
+    </nav>
+
     <!-- 컨테이너 -->
     <div class="container">
       <h1>랜덤 여행 추천</h1>
       <!-- 추천 박스 -->
-      <div class="recommendation-box">
-        <div class="image-container">
-          <p>추천 장소가 여기 표시됩니다!</p>
-        </div>
+      <div class="recommendation-box"></div>
+      <div class="image-container">
+        <p>추천 장소가 여기 표시됩니다!</p>
       </div>
       <!-- 처음 버튼 -->
       <div id="initialButton" class="button-group">
-        <button onclick="startRandomRecommendation()"></button>
+        <button onclick="startRandomRecommendation()">추천 시작!</button>
       </div>
       <!-- 카테고리 버튼 -->
       <div id="categoryButtons" class="button-group hidden">
@@ -38,7 +82,11 @@
     </div>
 
     <!-- 배경음악 및 효과음 -->
-    <audio id="bgm" src="/static/audio/roulette-background.mp3" preload="auto"></audio>
+    <audio
+      id="bgm"
+      src="/static/audio/roulette-background.mp3"
+      preload="auto"
+    ></audio>
     <audio id="buttonSound" src="/static/audio/button.mp3"></audio>
     <audio id="placeSound" src="/static/audio/place-reveal.mp3"></audio>
 

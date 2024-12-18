@@ -2,12 +2,34 @@ body {
   margin: 0;
   padding: 0;
   font-family: "VT323", monospace;
-  background-color: #21898c;
+  background: linear-gradient(
+    -45deg,
+    #264653,
+    #2a9d8f,
+    #e9c46a,
+    #f4a261,
+    #e76f51
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
   text-align: center;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 .container {
   padding: 20px;
+  margin-top: 90px;
 }
 
 h1 {
@@ -17,7 +39,6 @@ h1 {
   text-shadow: 2px 2px 0px #333;
 }
 
-/* 추천 박스 */
 .recommendation-box {
   position: relative;
   margin: 0 auto;
@@ -28,68 +49,70 @@ h1 {
   background-position: center;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
+  filter: blur(1px) brightness(70%);
+  transition: filter 0.5s ease;
+  z-index: 1;
 }
 
 #initialButton button {
-  background-image: url("/static/images/start.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 200px;
-  height: 70px;
-  border: none;
+  font-weight: bold;
+  width: 280px;
+  height: 80px;
+  font-size: 30px;
+  border: 4px solid #000000;
   cursor: pointer;
+  transition: all 0.2s;
   overflow: hidden;
-  transition: transform 0.1s ease;
+  image-rendering: pixelated;
 }
 
-#initialButton button:hover {
-  transform: scale(1.1);
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
 }
 
 .button-group button {
-  padding: 15px 25px;
-  font-size: 16px;
-  font-weight: bold;
-  color: black;
-  background-image: url("/static/images/button.png");
-  background-color: transparent;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  border: none;
+  padding: 15px 30px;
+  font-family: "VT323", monospace;
+  font-size: 24px;
+  color: white;
+  background-color: #4a4a4a;
+  border: 4px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
   cursor: pointer;
-  text-align: center;
-  width: 150px;
-  height: 50px;
-  box-shadow: 2px 2px 0px #333;
-  transition: transform 0.1s ease;
+  transition: all 0.2s;
+  image-rendering: pixelated;
 }
 
 .button-group button:hover {
-  transform: scale(1.1);
-  box-shadow: 2px 2px 0px #000;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.button-group button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
-/* 로딩 애니메이션 */
+/* 로딩 화면 스타일 */
 .loading {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #000;
-  color: #fff;
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .bus-container {
@@ -107,27 +130,145 @@ h1 {
 
 @keyframes move-bus {
   0% {
-    transform: translateX(-120%);
+    transform: translateX(-100%);
   }
   100% {
-    transform: translateX(120%);
+    transform: translateX(100%);
   }
 }
-
 .loading-text {
-  font-size: 16px;
-  text-transform: uppercase;
-  animation: text-blink 1.5s infinite steps(2);
+  font-size: 24px;
+  color: white;
+  text-shadow: 2px 2px 0px #000000;
+  font-family: "VT323", monospace;
+  animation: fadeBlink 2s infinite;
 }
 
-@keyframes text-blink {
-  0% {
+@keyframes fadeBlink {
+  0%,
+  100% {
     opacity: 1;
+    transform: scale(1);
   }
   50% {
-    opacity: 0;
+    opacity: 0.5;
+    transform: scale(1.05);
   }
-  100% {
-    opacity: 1;
-  }
+}
+
+.image-container {
+  position: absolute;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 400px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  z-index: 2;
+  text-align: center;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-bottom: 2px solid #333;
+}
+
+.image-container p {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 12px 0;
+  font-size: 28px;
+  font-family: "VT323", monospace;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.7);
+  text-shadow: 2px 2px 0px #000;
+  border-top: 3px solid #fff;
+  letter-spacing: 1px;
+  z-index: 1;
+}
+
+.nav-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  padding: 0 20px;
+  box-sizing: border-box;
+  height: 70px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  max-width: 2560px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.nav-item-container {
+  position: relative;
+}
+
+.nav-item {
+  font-size: 0.95rem;
+  color: #333;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  padding: 15px 20px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-item:hover {
+  background-color: rgba(0, 0, 0, 0.07);
+  color: #000;
+}
+
+.nav-description {
+  display: none;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 120px;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  white-space: nowrap;
+  z-index: 9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.nav-item-container:hover .nav-description {
+  display: block;
+}
+
+.logo img {
+  height: 40px;
+  padding-right: 20px;
+  object-fit: contain;
+  cursor: pointer;
 }
