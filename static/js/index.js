@@ -131,6 +131,7 @@ function setActiveButton(activeButton) {
 }
 
 // 시,도 지도 선택 및 색상 변경 코드
+/*
 function go_branch(city_do) {
   const regions = [
     "sejong",
@@ -175,6 +176,18 @@ function go_branch(city_do) {
     console.log(`${regionNames[idx]} (${city_do}) 선택됨`);
   }
 }
+  */
+function go_branch(city_do) {
+  // 광역시나 특별시, 특별자치시 코드 목록
+  const cityRoutes = ["sejong", "busan", "daegu", "incheon", "daejeon", "ulsan", "seoul", "gwangju"];
+
+  // jeju의 경우 "제주특별자치도"이므로 도로 분류하여 region 경로 사용
+  if (cityRoutes.includes(city_do)) {
+    window.location.href = `/city/${city_do}`;
+  } else {
+    window.location.href = `/region/${city_do}`;
+  }
+}
 
 // 시/도 지도 색상 선택 관련 함수
 function setupSVGEventHandlers() {
@@ -213,12 +226,9 @@ function setupSVGEventHandlers() {
   });
 }
 
-function go_branch(cityId) {
-  console.log(`Selected city: ${cityId}`);
-}
 
 // SVG 로드 후 이벤트 설정
-fetch("map.svg")
+fetch("/static/images/map.svg")
   .then((response) => {
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);

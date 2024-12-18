@@ -4,7 +4,6 @@ from flask import (
     render_template,
     redirect,
     url_for,
-    flash,
     abort,
     send_from_directory,
 )
@@ -191,7 +190,7 @@ def search():
                 )
 
     return render_template(
-        "search.html",
+        "showList.html",
         results=search_results,
         query=query,
         regions_with_cities=regions_with_cities,
@@ -204,6 +203,20 @@ def city(city_name):
         return render_template(f"city/{city_name}.html")
     except Exception:
         abort(404)
+
+
+@app.route("/region/<region_code>")
+def region_page(region_code):
+    region = Region.query.filter_by(code=region_code).first()
+    if not region:
+        abort(404)
+    cities_in_region = City.query.filter_by(region_id=region.id).all()
+    return render_template(
+        "showList.html",
+        results=[],
+        query=None,
+        regions_with_cities=[{"region_name": region.name, "cities": cities_in_region}],
+    )
 
 
 @app.route("/post")
