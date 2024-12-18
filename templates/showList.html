@@ -58,7 +58,7 @@
                     <div class="city-cards-container">
                         {% for city in region.cities %}
                             <div class="city-card" onclick="location.href='/city/{{ city.code }}'">
-                                <!-- 이미지 로드: 먼저 -symbol 시도, 실패 시 -image 시도, 둘 다 실패 시 숨김 -->
+                                <!-- city 이미지 로딩 로직 (기존) -->
                                 <img src="/static/images/city/{{ city.code }}-symbol.png"
                                      alt="{{ city.name }} 이미지"
                                      onerror="
@@ -70,7 +70,9 @@
                                      " />
 
                                 <h3>{{ city.name }}</h3>
-                                <div class="region-name">{{ region.region_name }}</div>
+                                {% if city['type'] == 'city' and city['region_name'] %}
+                                    <div class="region-name">{{ city['region_name'] }}</div>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>
@@ -81,16 +83,39 @@
                 <h2>일반 검색 결과</h2>
                 <div class="city-cards-container">
                     {% for result in results %}
-                        <div class="city-card" onclick="location.href='/city/{{ result['code'] }}'">
-                            <img src="/static/images/city/{{ result['code'] }}-symbol.png"
-                                 alt="{{ result['name'] }} 이미지"
-                                 onerror="
-                                    this.onerror = function() {
-                                        this.style.display='none';
-                                    };
-                                    this.src='/static/images/city/{{ result['code'] }}-image.png';
-                                 " />
+                        <div class="city-card"
+                             {% if result['type'] == 'region' %}
+                                onclick="location.href='/region/{{ result['code'] }}'"
+                             {% else %}
+                                onclick="location.href='/city/{{ result['code'] }}'"
+                             {% endif %}>
+                             
+                            {% if result['type'] == 'region' %}
+                                <!-- region 이미지 로딩 로직 -->
+                                <img src="/static/images/region/{{ result['code'] }}-symbol.png"
+                                     alt="{{ result['name'] }} 이미지"
+                                     onerror="
+                                        this.onerror = function() {
+                                            this.style.display='none';
+                                        };
+                                     " 
+                                     onload="if (this.naturalWidth == 0) this.style.display='none';" />
+                            {% else %}
+                                <!-- city 이미지 로딩 로직 (기존) -->
+                                <img src="/static/images/city/{{ result['code'] }}-symbol.png"
+                                     alt="{{ result['name'] }} 이미지"
+                                     onerror="
+                                        this.onerror = function() {
+                                            this.style.display='none';
+                                        };
+                                        this.src='/static/images/city/{{ result['code'] }}-image.png';
+                                     " />
+                            {% endif %}
+
                             <h3>{{ result['name'] }}</h3>
+                            {% if result['type'] == 'city' and result['region_name'] %}
+                                <div class="region-name">{{ result['region_name'] }}</div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>

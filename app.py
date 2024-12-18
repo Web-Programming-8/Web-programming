@@ -88,18 +88,31 @@ def search():
     query = request.args.get("query", "").strip()
     search_results = []  # 일반 검색 결과 (광역시, 도시)
     regions_with_cities = []  # 도와 그에 속한 도시 목록을 저장
+    exact_city = City.query.filter_by(name=query).first()
 
     if query:
-        # 명확한 광역시/특별시 예외 처리
         redirect_cities = {
             "서울": "seoul",
+            "서울시": "seoul",
+            "서울특별시": "seoul",
             "부산": "busan",
+            "부산시": "busan",
+            "부산광역시": "busan",
             "대구": "daegu",
+            "대구시": "daegu",
+            "대구광역시": "daegu",
             "인천": "incheon",
+            "인천시": "incheon",
+            "인천광역시": "incheon",
             "대전": "daejeon",
+            "대전시": "daejeon",
+            "대전광역시": "daejeon",
             "울산": "ulsan",
+            "울산시": "ulsan",
+            "울산광역시": "ulsan",
             "세종": "sejong",
             "세종시": "sejong",
+            "세종특별자치시": "sejong",
         }
 
         # 특정 광역시 검색 시 바로 리다이렉트
@@ -107,8 +120,8 @@ def search():
             if key == query:  # 정확히 일치해야 리다이렉트
                 return redirect(f"/city/{code}")
 
-        # 광주 검색 시 광주광역시와 경기도 광주시 모두 표시
-        if query == "광주":
+        # 광주, 광주시 검색 시 광주광역시와 경기도 광주시 모두 표시
+        if query in ["광주", "광주시"]:
             regions = Region.query.filter(Region.name.contains("광주")).all()
             for region in regions:
                 search_results.append(
@@ -118,7 +131,12 @@ def search():
             cities = City.query.filter(City.name.contains("광주")).all()
             for city in cities:
                 search_results.append(
-                    {"name": city.name, "code": city.code, "type": "city"}
+                    {
+                        "name": city.name,
+                        "code": city.code,
+                        "type": "city",
+                        "region_name": city.region.name,
+                    }
                 )
 
         # 제주도 예외 처리
@@ -137,8 +155,8 @@ def search():
                 "경상도": ["경상북도", "경상남도"],
                 "충청": ["충청북도", "충청남도"],
                 "충청도": ["충청북도", "충청남도"],
-                "전라": ["전라북도", "전라남도"],
-                "전라도": ["전라북도", "전라남도"],
+                "전라": ["전북특별자치도", "전라남도"],
+                "전라도": ["전북특별자치도", "전라남도"],
             }
 
             for region_name in region_keywords[query]:
@@ -149,14 +167,46 @@ def search():
                         {"region_name": region.name, "cities": cities_in_region}
                     )
 
+        elif query in [
+            "전남",
+            "경북",
+            "경남",
+            "충남",
+            "충북",
+            "전라북도",
+            "전북",
+            "강원도",
+            "강원",
+        ]:
+            special_mapping = {
+                "전남": "전라남도",
+                "경북": "경상북도",
+                "경남": "경상남도",
+                "충남": "충청남도",
+                "충북": "충청북도",
+                "전라북도": "전북특별자치도",
+                "전북": "전북특별자치도",
+                "강원도": "강원특별자치도",
+                "강원": "강원특별자치도",
+            }
+            target_region_name = special_mapping[query]
+            region = Region.query.filter_by(name=target_region_name).first()
+            if region:
+                cities_in_region = City.query.filter_by(region_id=region.id).all()
+                regions_with_cities.append(
+                    {"region_name": region.name, "cities": cities_in_region}
+                )
+
         # 남/북도 이름 정확히 입력 시 도시 목록 표시
         elif query in [
-            "전라북도",
+            "전북특별자치도",
             "전라남도",
             "경상북도",
             "경상남도",
             "충청북도",
             "충청남도",
+            "경기도",
+            "강원특별자치도",
         ]:
             region = Region.query.filter_by(name=query).first()
             if region:
@@ -165,14 +215,8 @@ def search():
                     {"region_name": region.name, "cities": cities_in_region}
                 )
 
-        # 경기도, 강원도
-        elif query in ["경기도", "강원도"]:
-            region = Region.query.filter_by(name=query).first()
-            if region:
-                cities_in_region = City.query.filter_by(region_id=region.id).all()
-                regions_with_cities.append(
-                    {"region_name": region.name, "cities": cities_in_region}
-                )
+        elif exact_city:
+            return redirect(f"/city/{exact_city.code}")
 
         # 일반 검색 결과 처리
         else:
@@ -181,12 +225,22 @@ def search():
 
             for region in regions:
                 search_results.append(
-                    {"name": region.name, "code": region.code, "type": "region"}
+                    {
+                        "name": region.name,
+                        "code": region.code,
+                        "type": "region",
+                        "redirect_query": region.name,
+                    }
                 )
 
             for city in cities:
                 search_results.append(
-                    {"name": city.name, "code": city.code, "type": "city"}
+                    {
+                        "name": city.name,
+                        "code": city.code,
+                        "type": "city",
+                        "region_name": city.region.name,
+                    }
                 )
 
     return render_template(

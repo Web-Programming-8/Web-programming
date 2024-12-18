@@ -43,7 +43,7 @@
             {"name": "연천군", "code": "yeoncheon"}
         ]
     },
-    "강원도": {
+    "강원특별자치도": {
         "code": "gangwon",
         "cities": [
             {"name": "춘천시", "code": "chuncheon"},
@@ -81,7 +81,7 @@
             {"name": "태안군", "code": "taean"}
         ]
     },
-    "전라북도": {
+    "전북특별자치도": {
         "code": "jeonbuk",
         "cities": [
             {"name": "전주시", "code": "jeonju"},
