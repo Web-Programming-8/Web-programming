@@ -145,7 +145,11 @@ def search():
             if jeju_region:
                 cities_in_region = City.query.filter_by(region_id=jeju_region.id).all()
                 regions_with_cities.append(
-                    {"region_name": jeju_region.name, "cities": cities_in_region}
+                    {
+                        "region_name": jeju_region.name,
+                        "region_code": jeju_region.code,  # region_code 추가
+                        "cities": cities_in_region,
+                    }
                 )
 
         # 경상, 충청, 전라 + 도 처리

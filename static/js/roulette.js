@@ -36,7 +36,7 @@ const regionMapping = {
   창원: "changwon", 진주: "jinju", 통영: "tongyeong", 사천: "sacheon", 김해: "gimhae",
   밀양: "miryang", 거제: "geoje", 양산 : "yangsan", 남해: "namhae", 하동: "hadong",
   거창: "geochang",
-  제주: "jeju", 서귀포: "seogwipo"
+  제주: "jejusi", 서귀포: "seogwipo"
 };
 
 let spinning = false;
