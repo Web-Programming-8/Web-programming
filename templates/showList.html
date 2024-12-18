@@ -9,7 +9,7 @@
     <div class="container">
         <!-- 네비게이션 바 -->
         <nav class="nav-bar">
-            <div class="logo">
+            <div class="logo" onclick="location.href='/'" style="cursor:pointer;">
                 <img src="/static/images/KO-Map.png" alt="KO-Map 로고" />
             </div>
             <div class="nav-items">
@@ -52,30 +52,48 @@
                 <p>검색어: <strong>{{ query }}</strong></p>
             {% endif %}
 
-            <!-- 특정 도의 도시 목록 -->
             {% if regions_with_cities %}
                 {% for region in regions_with_cities %}
                     <h2>{{ region.region_name }}</h2>
-                    <ul>
+                    <div class="city-cards-container">
                         {% for city in region.cities %}
-                            <li>
-                                <a href="/city/{{ city.code }}">{{ city.name }}</a>
-                            </li>
+                            <div class="city-card" onclick="location.href='/city/{{ city.code }}'">
+                                <!-- 이미지 로드: 먼저 -symbol 시도, 실패 시 -image 시도, 둘 다 실패 시 숨김 -->
+                                <img src="/static/images/city/{{ city.code }}-symbol.png"
+                                     alt="{{ city.name }} 이미지"
+                                     onerror="
+                                        this.onerror = function() {
+                                            // symbol 실패 후 image도 실패한 경우 숨김
+                                            this.style.display='none';
+                                        };
+                                        this.src='/static/images/city/{{ city.code }}-image.png';
+                                     " />
+
+                                <h3>{{ city.name }}</h3>
+                                <div class="region-name">{{ region.region_name }}</div>
+                            </div>
                         {% endfor %}
-                    </ul>
+                    </div>
                 {% endfor %}
             {% endif %}
 
-            <!-- 일반 검색 결과 (광역시와 도시) -->
             {% if results %}
                 <h2>일반 검색 결과</h2>
-                <ul>
+                <div class="city-cards-container">
                     {% for result in results %}
-                        <li>
-                            <a href="/city/{{ result['code'] }}">{{ result['name'] }}</a>
-                        </li>
+                        <div class="city-card" onclick="location.href='/city/{{ result['code'] }}'">
+                            <img src="/static/images/city/{{ result['code'] }}-symbol.png"
+                                 alt="{{ result['name'] }} 이미지"
+                                 onerror="
+                                    this.onerror = function() {
+                                        this.style.display='none';
+                                    };
+                                    this.src='/static/images/city/{{ result['code'] }}-image.png';
+                                 " />
+                            <h3>{{ result['name'] }}</h3>
+                        </div>
                     {% endfor %}
-                </ul>
+                </div>
             {% elif not regions_with_cities %}
                 <p>검색 결과가 없습니다.</p>
             {% endif %}
