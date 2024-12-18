@@ -157,11 +157,12 @@ h1 {
   margin-top : 100px;
   align-items: center;    
   transform : scale(1.2);
+  z-index: -1;
 }
 
 .slot-roof {
   width: 480px;
-  z-index : 1;
+  z-index : 10;
   top : 10px;
   display: block; 
   margin-top: -20px
@@ -172,8 +173,10 @@ h1 {
   height: 120px;
   overflow: hidden;
   position : relative;
-  z-index : 2;
-  border: 5px solid #e7f2aa;
+  border: 5px solid #c3cfe2;
+  border-left: 15px solid #8B4513;
+  border-right: 15px solid #8B4513;
+  box-shadow: 5px 0 10px rgba(0, 0, 0, 0.2), -5px 0 10px rgba(0, 0, 0, 0.2);
   border-top: none;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -181,12 +184,14 @@ h1 {
   margin-top : -10px;
   margin-bottom : 15px;
   margin-bottom: 0;
+  z-index: 5;
 }
 
 .slot-floor {
   width: 480px;
   margin-top : -15px;
   display: block;
+  z-index: -1;
 }
 
 .reel {
@@ -196,7 +201,7 @@ h1 {
   font-weight: bold;
   text-align: center;
   color: black;
-  background-color: #e7f2aa;
+  background-color: #c3cfe2;
 }
 
 .reel div {
@@ -211,20 +216,23 @@ h1 {
   flex-wrap: wrap; 
   justify-content: center; 
   gap: 10px; 
+  z-index: 100;
+  position: relative;
 }
 #spin-button, #stop-button, #region-link {
   padding: 18px 36px;
   font-size: 24px;
-  background-color: #e092ee;
-  color: white;
+  background-color: #e7f2aa;
+  color: black;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin: 12px;
+  font-weight: bold;
 }
 
 #spin-button:hover, #stop-button:hover, #region-link:hover {
-  background-color: #0056b3;
+  background-color: olive;
 }
 
 #region-link {

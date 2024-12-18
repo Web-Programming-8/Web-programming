@@ -42,6 +42,7 @@ const regionMapping = {
 let spinning = false;
 let animationInterval;
 let selectedRegion = null;
+let speed = 50;  // 속도 증가
 
 const reel = document.getElementById("reel");
 destinations.forEach((destination) => {
@@ -125,12 +126,11 @@ document.addEventListener("DOMContentLoaded", function () {
       snowflake.classList.add('snowflake');
       snowflake.innerHTML = "&#10052;";
 
-      // 랜덤 스타일 설정
       snowflake.style.left = `${Math.random() * 100}vw`;
       snowflake.style.animationDuration = `${Math.random() * 5 + 5}s`;
       snowflake.style.fontSize = `${Math.random() * 10 + 10}px`;
 
-      const colors = ['#fff', '#e0eaf2', '#cce7ff']; // 흰색, 연파란색, 옅은 회색
+      const colors = ['#fff', '#e0eaf2', '#cce7ff']; 
       snowflake.style.color = colors[Math.floor(Math.random() * colors.length)];
       snowflake.style.opacity = Math.random() * 0.6 + 0.4;
 
