@@ -1,7 +1,7 @@
 html, body {
   font-family: Arial, sans-serif;
   text-align: center;
-  margin-top: 50px;
+  margin-top: 10px;
   padding: 0;
   height: 100vh; 
   overflow: hidden;
@@ -93,6 +93,22 @@ html, body {
   cursor: pointer;
 }
 
+.content-container {
+  width: 90%; 
+  max-width: 500px; 
+  min-height: 700px;
+  margin: 60px auto; 
+  background-color: rgba(255, 255, 255, 0.85); 
+  border-radius: 15px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
+  padding: 30px; 
+  overflow: hidden; 
+}
+
+.main-content {
+  text-align: left; /* 컨텐츠 정렬 */
+}
+
 .title-box {
   background-color: rgba(0, 0, 0, 0.6);
   color: white;
@@ -119,6 +135,7 @@ h1 {
   z-index : 1;
   top : 10px;
   display: block; 
+  margin-top: -20px
 }
 
 .slot-machine {
@@ -159,6 +176,8 @@ h1 {
 }
 
 .buttons-container {
+  margin-top: -15px; 
+  margin-bottom: -15px; 
   display: flex;
   flex-wrap: wrap; 
   justify-content: center; 
